@@ -1,259 +1,159 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/progamera373-ui/Nexa-Library-main-library-ui/refs/heads/main/NexaHub%20main%20.lua", true))()
-local mainWindow = library:AddWindow("                 NEXA HUB | FREMIUN AUTO WIM    " .. game.Players.LocalPlayer.DisplayName, {
-    title_bar = {
-        Color3.fromRGB(75, 0, 130),
-        Color3.fromRGB(128, 0, 128),
-        Color3.fromRGB(200, 0, 200),
-    },
-    title_bar_transparency = 0.2,
-    background = {
-        Color3.fromRGB(20, 0, 30),
-        Color3.fromRGB(40, 0, 60),
-        Color3.fromRGB(80, 0, 100),
-    },
-    background_transparency = 0.1,
-    main_color = Color3.fromRGB(128, 0, 128),
-    min_size = Vector2.new(650, 650),
-    can_resize = true,
-})
-
-local separator = string.rep("═", 38)
-local allLabels = {}
-
-local function addRainbowLabel(tab, text, textSize)
-    local lbl = tab:AddLabel(text)
-    if textSize then lbl.TextSize = textSize end
-    table.insert(allLabels, lbl)
-    return lbl
-end
-
-local infoTab = mainWindow:AddTab("InfoTab")
-addRainbowLabel(infoTab, separator)
-addRainbowLabel(infoTab, "WELCOME TO NEXA HUB  FREMIUN", 28)
-addRainbowLabel(infoTab, separator)
-addRainbowLabel(infoTab, "Made by: ALAN||")
-addRainbowLabel(infoTab, "Version: v1.")
-addRainbowLabel(infoTab, separator)
-addRainbowLabel(infoTab, "                                                  My Friends:                                                 ")
-addRainbowLabel(infoTab, "PANA TQ")
-addRainbowLabel(infoTab, "CRIWS")
-
-local mainTab = mainWindow:AddTab("Main")
-
-task.spawn(function()
-    while true do
-        local hue = tick() * 0.2 % 1
-        local color = Color3.fromHSV(hue, 0.9, 1)
-        for _, lbl in ipairs(allLabels) do
-            pcall(function() lbl.TextColor3 = color end)
-        end
-        task.wait(0.02)
-    end
-end)
-
-local paths = loadstring(game:HttpGet("https://raw.githubusercontent.com/progamera373-ui/Local-parths/refs/heads/main/Local.luau.cordenadas.lua"))()
-paths["TP40M"] = {
-    Vector3.new(3252.53, 592.60, 3868.69),
-    Vector3.new(3270.95, 592.62, 3869.13),
-    Vector3.new(3273.61, 592.62, 3872.29),
-    Vector3.new(3272.93, 592.62, 3878.46),
+[auto wim]
+local RecordedPath = {
+    Vector3.new(-6.65, 15.04, 0.09),
+    Vector3.new(-169.35, 11.29, 2.42),
+    Vector3.new(-590.99, 36.05, -3.21),
+    Vector3.new(-1076.50, 34.11, -20.69),
+    Vector3.new(-1080.42, 34.43, -23.89),
+    Vector3.new(-1090.16, 35.66, -33.73),
+    Vector3.new(-1102.52, 37.57, -48.01),
+    Vector3.new(-1116.20, 39.98, -66.75),
+    Vector3.new(-1133.38, 43.41, -95.10),
+    Vector3.new(-1154.90, 48.38, -138.08),
+    Vector3.new(-1165.48, 51.30, -164.19),
+    Vector3.new(-1175.76, 54.79, -196.58),
+    Vector3.new(-1186.15, 59.72, -243.51),
+    Vector3.new(-1188.91, 61.67, -262.37),
+    Vector3.new(-1191.36, 64.98, -297.12),
+    Vector3.new(-1191.17, 67.23, -329.55),
+    Vector3.new(-1190.40, 67.91, -343.68),
+    Vector3.new(-1189.02, 68.05, -355.28),
+    Vector3.new(-1187.09, 67.90, -366.80),
+    Vector3.new(-1185.59, 67.50, -373.29),
+    Vector3.new(-1179.92, 65.31, -392.39),
+    Vector3.new(-1165.68, 57.04, -435.20),
+    Vector3.new(-1160.06, 52.35, -455.60),
+    Vector3.new(-1155.67, 47.20, -477.92),
+    Vector3.new(-1153.02, 42.04, -500.52),
+    Vector3.new(-1152.73, 40.48, -507.84),
+    Vector3.new(-1152.81, 38.92, -516.02),
+    Vector3.new(-1153.54, 37.49, -525.03),
+    Vector3.new(-1155.15, 36.40, -533.97),
+    Vector3.new(-1167.89, 31.84, -581.20),
+    Vector3.new(-1169.94, 30.87, -591.79),
+    Vector3.new(-1179.38, 20.77, -705.08),
+    Vector3.new(-1182.62, 12.96, -865.64),
+    Vector3.new(-1178.62, 8.56, -1132.21),
+    Vector3.new(-1179.35, -19.91, -1358.70),
+    Vector3.new(-1179.67, -15.41, -1359.82),
+    Vector3.new(-1186.25, 72.61, -1389.92),
+    Vector3.new(-1186.59, 80.57, -1392.30),
+    Vector3.new(-1182.52, 203.47, -1414.19),
+    Vector3.new(-1182.22, 209.07, -1415.84),
+    Vector3.new(-1181.95, 213.53, -1418.15),
+    Vector3.new(-1181.68, 218.82, -1422.32),
+    Vector3.new(-1181.51, 222.47, -1425.83),
+    Vector3.new(-1181.34, 229.24, -1435.50),
+    Vector3.new(-1181.12, 229.47, -1444.60),
+    Vector3.new(-1181.87, 230.11, -1450.12),
+    Vector3.new(-1203.42, 234.26, -1548.65),
+    Vector3.new(-1210.78, 234.21, -1598.10),
+    Vector3.new(-1214.66, 230.84, -1732.96),
+    Vector3.new(-1178.51, 213.34, -2256.32),
+    Vector3.new(-1179.17, 210.90, -2259.48),
+    Vector3.new(-1185.80, 138.09, -2346.09),
+    Vector3.new(-1184.96, 141.13, -2363.85),
+    Vector3.new(-1216.37, 137.07, -2361.79),
+    Vector3.new(-1249.34, 132.78, -2362.65),
+    Vector3.new(-1258.39, 131.60, -2363.48),
+    Vector3.new(-1261.80, 130.89, -2367.76),
+    Vector3.new(-1290.87, 124.33, -2419.39),
+    Vector3.new(-1295.38, 123.53, -2426.35),
+    Vector3.new(-1299.24, 122.89, -2431.74),
+    Vector3.new(-1294.53, 123.08, -2431.01),
+    Vector3.new(-1288.40, 123.30, -2430.88),
+    Vector3.new(-1281.39, 123.10, -2436.31),
+    Vector3.new(-1306.14, 121.41, -2450.73),
+    Vector3.new(-1317.31, 120.68, -2456.29),
+    Vector3.new(-1330.48, 119.88, -2461.42),
+    Vector3.new(-1336.04, 119.55, -2463.16),
+    Vector3.new(-1343.29, 119.15, -2465.03),
+    Vector3.new(-1348.52, 119.18, -2466.32),
+    Vector3.new(-1368.27, 120.86, -2468.47),
+    Vector3.new(-1374.05, 121.44, -2468.85),
+    Vector3.new(-1393.04, 125.89, -2474.65),
+    Vector3.new(-1388.84, 126.05, -2474.11),
+    Vector3.new(-1384.30, 126.21, -2473.08),
+    Vector3.new(-1379.36, 126.37, -2471.69),
+    Vector3.new(-1323.01, 128.25, -2448.36),
+    Vector3.new(-1320.22, 128.33, -2443.99),
+    Vector3.new(-1312.16, 128.55, -2429.75),
+    Vector3.new(-1307.14, 128.76, -2432.06),
+    Vector3.new(-1301.08, 128.98, -2436.22),
+    Vector3.new(-1297.32, 129.11, -2439.52),
+    Vector3.new(-1279.83, 129.52, -2461.81),
+    Vector3.new(-1275.67, 129.05, -2468.56),
+    Vector3.new(-1273.06, 128.60, -2473.77),
+    Vector3.new(-1271.66, 128.15, -2478.14),
+    Vector3.new(-1270.58, 126.74, -2490.90),
+    Vector3.new(-1263.95, 126.73, -2488.62),
+    Vector3.new(-1250.00, 127.47, -2476.75),
+    Vector3.new(-1241.35, 127.89, -2470.24),
+    Vector3.new(-1230.30, 128.41, -2462.81),
+    Vector3.new(-1218.20, 126.20, -2437.77),
+    Vector3.new(-1214.24, 125.35, -2433.31),
+    Vector3.new(-1204.68, 123.13, -2426.92),
+    Vector3.new(-1195.45, 122.42, -2432.02),
+    Vector3.new(-1185.82, 121.61, -2438.08),
+    Vector3.new(-1182.06, 121.93, -2442.28),
+    Vector3.new(-1173.21, 124.04, -2454.68),
+    Vector3.new(-1172.54, 124.62, -2468.83),
+    Vector3.new(-1172.43, 124.57, -2472.97),
+    Vector3.new(-1172.23, 124.24, -2477.58),
+    Vector3.new(-1173.00, 122.70, -2487.78),
+    Vector3.new(-1173.00, 122.38, -2493.04),
+    Vector3.new(-1172.37, 123.43, -2504.33),
+    Vector3.new(-1172.07, 123.67, -2509.49),
+    Vector3.new(-1171.07, 123.58, -2517.79),
+    Vector3.new(-1168.25, 122.06, -2536.75),
+    Vector3.new(-1168.13, 121.83, -2546.31),
+    Vector3.new(-1168.16, 122.45, -2565.42),
+    Vector3.new(-1165.78, 125.08, -2592.59),
+    Vector3.new(-1168.36, 125.93, -2615.40),
+    Vector3.new(-1169.28, 126.45, -2639.08),
+    Vector3.new(-1188.32, 126.41, -2754.99),
+    Vector3.new(-1199.24, 124.87, -2810.57),
+    Vector3.new(-1201.23, 124.46, -2825.43),
+    Vector3.new(-1201.91, 124.29, -2834.57),
+    Vector3.new(-1202.06, 124.13, -2844.56),
+    Vector3.new(-1201.25, 124.01, -2860.37),
+    Vector3.new(-1199.95, 123.98, -2870.28),
+    Vector3.new(-1176.99, 126.57, -2963.23),
+    Vector3.new(-1169.48, 129.49, -3017.61),
+    Vector3.new(-1167.95, 130.64, -3039.19),
+    Vector3.new(-1166.17, 131.08, -3054.40),
+    Vector3.new(-1165.55, 131.66, -3069.37),
+    Vector3.new(-1169.52, 140.46, -3203.98),
+    Vector3.new(-1177.78, 200.62, -3512.96),
+    Vector3.new(-1177.79, 203.89, -3539.45),
+    Vector3.new(-1177.78, 204.93, -3559.45),
+    Vector3.new(-1177.75, 203.97, -3599.47),
+    Vector3.new(-1177.98, 199.82, -3639.29),
+    Vector3.new(-1179.08, 195.66, -3663.94),
+    Vector3.new(-1181.58, 190.52, -3687.43),
+    Vector3.new(-1187.89, 181.10, -3721.44),
+    Vector3.new(-1205.52, 160.28, -3785.00),
+    Vector3.new(-1212.52, 153.52, -3804.35),
+    Vector3.new(-1214.11, 152.23, -3807.98),
+    Vector3.new(-1217.30, 149.89, -3814.35),
+    Vector3.new(-1219.36, 148.59, -3817.73),
+    Vector3.new(-1224.18, 146.25, -3822.98),
+    Vector3.new(-1230.28, 143.66, -3828.04),
+    Vector3.new(-1233.48, 142.36, -3830.37),
+    Vector3.new(-1237.73, 140.94, -3832.11),
+    Vector3.new(-1261.05, 135.16, -3834.87),
+    Vector3.new(-1291.67, 127.60, -3841.09),
+    Vector3.new(-1305.91, 126.13, -3839.49),
+    Vector3.new(-1323.58, 123.69, -3839.53),
+    Vector3.new(-1318.49, 124.47, -3839.81),
+    Vector3.new(-1318.51, 132.88, -3839.82),
+    Vector3.new(-1318.51, 128.69, -3839.82),
+    Vector3.new(-1318.51, 132.72, -3839.82),
+    Vector3.new(-1318.51, 128.69, -3839.82),
+    Vector3.new(-1318.51, 132.71, -3839.82),
+    Vector3.new(-1318.51, 128.68, -3839.82),
+    Vector3.new(-1318.51, 132.81, -3839.82),
+    Vector3.new(-1318.51, 128.34, -3839.82),
+    Vector3.new(-1318.51, 132.51, -3839.82),
+    Vector3.new(-1318.51, 127.98, -3839.82),
 }
-
-local selectedPath = nil
-local autoWalkEnabled = false
-local walkSpeed = 100
-local currentTween = nil
-local singleRun = false
-
-local EXACT_NAMES_TO_DESTROY = {
-    "MovingWall1", "MovingWall2", "MovingWall3", "MovingWall4", "MovingWall5",
-    "MovingWall6", "MovingWall7", "MovingWall8", "MovingWall9",
-    "MovingWalls",
-    "LavaPart",
-    "NPC5_AttackZone",
-    "NPC9_AttackZone",
-    "Piques",
-    "piques",
-    "Movement",
-    "Tsunami",
-    "TsunamiEnd",
-    "TsunamiSpawn",
-    "TriggerPart",
-    "Twomp",
-    "Twomps",
-    "Ventilateurs",
-    "FanEffects",
-}
-
-local PROTECTED_NAMES = {
-    ["Bridge1"] = true,
-}
-
-local function isExactNameTargeted(name)
-    if PROTECTED_NAMES[name] then return false end
-    for _, target in ipairs(EXACT_NAMES_TO_DESTROY) do
-        if name == target then return true end
-    end
-    return false
-end
-
-local destroyedSet = setmetatable({}, {__mode = "k"})
-
-local function safeDestroy(instance)
-    if destroyedSet[instance] then return end
-    destroyedSet[instance] = true
-    pcall(function()
-        instance:Destroy()
-    end)
-end
-
-local function removeObstacles()
-    local removedCount = 0
-    local allDescendants = Workspace:GetDescendants()
-    for _, descendant in ipairs(allDescendants) do
-        if descendant.Parent and isExactNameTargeted(descendant.Name) then
-            safeDestroy(descendant)
-            removedCount = removedCount + 1
-        end
-    end
-    print("[NexaHub] REMOVE OBSTACLES: " .. removedCount .. " instances removed.")
-    return removedCount
-end
-
-addRainbowLabel(mainTab, separator)
-addRainbowLabel(mainTab, "AUTO WIM SETTINGS")
-
-local pathDropdown = mainTab:AddDropdown("Select Distance", function(value)
-    selectedPath = paths[value]
-    singleRun = false
-    print("Ruta seleccionada: " .. tostring(value))
-end)
-pathDropdown:Add("250k")
-pathDropdown:Add("400k")
-pathDropdown:Add("600k")
-pathDropdown:Add("1m")
-pathDropdown:Add("1.5m")
-pathDropdown:Add("4m")
-pathDropdown:Add("6m")
-pathDropdown:Add("15m")
-pathDropdown:Add("25m")
-pathDropdown:Add("100m")
-
-local speed200Enabled = false
-local speed300Enabled = false
-
-mainTab:AddSwitch("Walk Speed 200", function(enabled)
-    speed200Enabled = enabled
-    if enabled then
-        speed300Enabled = false
-        walkSpeed = 200
-    else
-        walkSpeed = 100
-    end
-end)
-
-mainTab:AddSwitch("Walk Speed 300", function(enabled)
-    speed300Enabled = enabled
-    if enabled then
-        speed200Enabled = false
-        walkSpeed = 300
-    else
-        walkSpeed = 100
-    end
-end)
-
-mainTab:AddSwitch("Auto Wim", function(enabled)
-    autoWalkEnabled = enabled
-    singleRun = false
-    if enabled then
-        removeObstacles()
-        print("[NexaHub] Auto Wim iniciado")
-    else
-        if currentTween then
-            currentTween:Cancel()
-            currentTween = nil
-        end
-        print("[NexaHub] Auto Wim detenido")
-    end
-end)
-
-mainTab:AddButton("REMOVE OBSTACLES", function()
-    removeObstacles()
-end)
-
-mainTab:AddButton("TP 40M wim no sirve", function()
-    selectedPath = paths["TP40M"]
-    singleRun = true
-    autoWalkEnabled = true
-    local character = game.Players.LocalPlayer.Character
-    if character and character:FindFirstChild("HumanoidRootPart") then
-        character.HumanoidRootPart.CFrame = CFrame.new(paths["TP40M"][1])
-    end
-    removeObstacles()
-    print("[NexaHub] TP 40M wim iniciado (una sola vez)")
-end)
-
-task.spawn(function()
-    while task.wait() do
-        if autoWalkEnabled and selectedPath then
-            local character = game.Players.LocalPlayer.Character
-            if not character or not character:FindFirstChild("HumanoidRootPart") then
-                print("[NexaHub] Esperando al personaje...")
-                task.wait(1)
-                continue
-            end
-            local hrp = character.HumanoidRootPart
-
-            for _, part in ipairs(character:GetDescendants()) do
-                if part:IsA("BasePart") and part.CanCollide then
-                    part.CanCollide = false
-                end
-            end
-
-            for i = 1, #selectedPath do
-                if not autoWalkEnabled then break end
-                local targetPos = selectedPath[i]
-
-                while autoWalkEnabled and (hrp.Position - targetPos).Magnitude > 2 do
-                    hrp.Velocity = Vector3.zero
-                    hrp.RotVelocity = Vector3.zero
-
-                    local distance = (hrp.Position - targetPos).Magnitude
-                    local tweenTime = distance / walkSpeed
-                    local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
-
-                    currentTween = game:GetService("TweenService"):Create(hrp, tweenInfo, {CFrame = CFrame.new(targetPos)})
-                    currentTween:Play()
-
-                    print("[NexaHub] Moviendo al nodo " .. i .. "/" .. #selectedPath)
-
-                    currentTween.Completed:Wait()
-                    currentTween = nil
-                    task.wait()
-                end
-            end
-
-            if autoWalkEnabled then
-                if character and character:FindFirstChild("Humanoid") then
-                    character.Humanoid.Jump = true
-                end
-
-                local vim = game:GetService("VirtualInputManager")
-                pcall(function()
-                    vim:SendKeyEvent(true, Enum.KeyCode.One, false, game)
-                    task.wait(1)
-                    vim:SendKeyEvent(false, Enum.KeyCode.One, false, game)
-                end)
-
-                if singleRun then
-                    autoWalkEnabled = false
-                    singleRun = false
-                    print("[NexaHub] TP 40M wim completado. Deteniendo.")
-                else
-                    print("[NexaHub] Recorrido completado. Repitiendo...")
-                end
-                task.wait(1)
-            end
-        end
-    end
-end)
