@@ -1,0 +1,259 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/progamera373-ui/Nexa-Library-main-library-ui/refs/heads/main/NexaHub%20main%20.lua", true))()
+local mainWindow = library:AddWindow("                 NEXA HUB | FREMIUN AUTO WIM    " .. game.Players.LocalPlayer.DisplayName, {
+    title_bar = {
+        Color3.fromRGB(75, 0, 130),
+        Color3.fromRGB(128, 0, 128),
+        Color3.fromRGB(200, 0, 200),
+    },
+    title_bar_transparency = 0.2,
+    background = {
+        Color3.fromRGB(20, 0, 30),
+        Color3.fromRGB(40, 0, 60),
+        Color3.fromRGB(80, 0, 100),
+    },
+    background_transparency = 0.1,
+    main_color = Color3.fromRGB(128, 0, 128),
+    min_size = Vector2.new(650, 650),
+    can_resize = true,
+})
+
+local separator = string.rep("═", 38)
+local allLabels = {}
+
+local function addRainbowLabel(tab, text, textSize)
+    local lbl = tab:AddLabel(text)
+    if textSize then lbl.TextSize = textSize end
+    table.insert(allLabels, lbl)
+    return lbl
+end
+
+local infoTab = mainWindow:AddTab("InfoTab")
+addRainbowLabel(infoTab, separator)
+addRainbowLabel(infoTab, "WELCOME TO NEXA HUB  FREMIUN", 28)
+addRainbowLabel(infoTab, separator)
+addRainbowLabel(infoTab, "Made by: ALAN||")
+addRainbowLabel(infoTab, "Version: v1.")
+addRainbowLabel(infoTab, separator)
+addRainbowLabel(infoTab, "                                                  My Friends:                                                 ")
+addRainbowLabel(infoTab, "PANA TQ")
+addRainbowLabel(infoTab, "CRIWS")
+
+local mainTab = mainWindow:AddTab("Main")
+
+task.spawn(function()
+    while true do
+        local hue = tick() * 0.2 % 1
+        local color = Color3.fromHSV(hue, 0.9, 1)
+        for _, lbl in ipairs(allLabels) do
+            pcall(function() lbl.TextColor3 = color end)
+        end
+        task.wait(0.02)
+    end
+end)
+
+local paths = loadstring(game:HttpGet("https://raw.githubusercontent.com/progamera373-ui/Local-parths/refs/heads/main/Local.luau.cordenadas.lua"))()
+paths["TP40M"] = {
+    Vector3.new(3252.53, 592.60, 3868.69),
+    Vector3.new(3270.95, 592.62, 3869.13),
+    Vector3.new(3273.61, 592.62, 3872.29),
+    Vector3.new(3272.93, 592.62, 3878.46),
+}
+
+local selectedPath = nil
+local autoWalkEnabled = false
+local walkSpeed = 100
+local currentTween = nil
+local singleRun = false
+
+local EXACT_NAMES_TO_DESTROY = {
+    "MovingWall1", "MovingWall2", "MovingWall3", "MovingWall4", "MovingWall5",
+    "MovingWall6", "MovingWall7", "MovingWall8", "MovingWall9",
+    "MovingWalls",
+    "LavaPart",
+    "NPC5_AttackZone",
+    "NPC9_AttackZone",
+    "Piques",
+    "piques",
+    "Movement",
+    "Tsunami",
+    "TsunamiEnd",
+    "TsunamiSpawn",
+    "TriggerPart",
+    "Twomp",
+    "Twomps",
+    "Ventilateurs",
+    "FanEffects",
+}
+
+local PROTECTED_NAMES = {
+    ["Bridge1"] = true,
+}
+
+local function isExactNameTargeted(name)
+    if PROTECTED_NAMES[name] then return false end
+    for _, target in ipairs(EXACT_NAMES_TO_DESTROY) do
+        if name == target then return true end
+    end
+    return false
+end
+
+local destroyedSet = setmetatable({}, {__mode = "k"})
+
+local function safeDestroy(instance)
+    if destroyedSet[instance] then return end
+    destroyedSet[instance] = true
+    pcall(function()
+        instance:Destroy()
+    end)
+end
+
+local function removeObstacles()
+    local removedCount = 0
+    local allDescendants = Workspace:GetDescendants()
+    for _, descendant in ipairs(allDescendants) do
+        if descendant.Parent and isExactNameTargeted(descendant.Name) then
+            safeDestroy(descendant)
+            removedCount = removedCount + 1
+        end
+    end
+    print("[NexaHub] REMOVE OBSTACLES: " .. removedCount .. " instances removed.")
+    return removedCount
+end
+
+addRainbowLabel(mainTab, separator)
+addRainbowLabel(mainTab, "AUTO WIM SETTINGS")
+
+local pathDropdown = mainTab:AddDropdown("Select Distance", function(value)
+    selectedPath = paths[value]
+    singleRun = false
+    print("Ruta seleccionada: " .. tostring(value))
+end)
+pathDropdown:Add("250k")
+pathDropdown:Add("400k")
+pathDropdown:Add("600k")
+pathDropdown:Add("1m")
+pathDropdown:Add("1.5m")
+pathDropdown:Add("4m")
+pathDropdown:Add("6m")
+pathDropdown:Add("15m")
+pathDropdown:Add("25m")
+pathDropdown:Add("100m")
+
+local speed200Enabled = false
+local speed300Enabled = false
+
+mainTab:AddSwitch("Walk Speed 200", function(enabled)
+    speed200Enabled = enabled
+    if enabled then
+        speed300Enabled = false
+        walkSpeed = 200
+    else
+        walkSpeed = 100
+    end
+end)
+
+mainTab:AddSwitch("Walk Speed 300", function(enabled)
+    speed300Enabled = enabled
+    if enabled then
+        speed200Enabled = false
+        walkSpeed = 300
+    else
+        walkSpeed = 100
+    end
+end)
+
+mainTab:AddSwitch("Auto Wim", function(enabled)
+    autoWalkEnabled = enabled
+    singleRun = false
+    if enabled then
+        removeObstacles()
+        print("[NexaHub] Auto Wim iniciado")
+    else
+        if currentTween then
+            currentTween:Cancel()
+            currentTween = nil
+        end
+        print("[NexaHub] Auto Wim detenido")
+    end
+end)
+
+mainTab:AddButton("REMOVE OBSTACLES", function()
+    removeObstacles()
+end)
+
+mainTab:AddButton("TP 40M wim no sirve", function()
+    selectedPath = paths["TP40M"]
+    singleRun = true
+    autoWalkEnabled = true
+    local character = game.Players.LocalPlayer.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        character.HumanoidRootPart.CFrame = CFrame.new(paths["TP40M"][1])
+    end
+    removeObstacles()
+    print("[NexaHub] TP 40M wim iniciado (una sola vez)")
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if autoWalkEnabled and selectedPath then
+            local character = game.Players.LocalPlayer.Character
+            if not character or not character:FindFirstChild("HumanoidRootPart") then
+                print("[NexaHub] Esperando al personaje...")
+                task.wait(1)
+                continue
+            end
+            local hrp = character.HumanoidRootPart
+
+            for _, part in ipairs(character:GetDescendants()) do
+                if part:IsA("BasePart") and part.CanCollide then
+                    part.CanCollide = false
+                end
+            end
+
+            for i = 1, #selectedPath do
+                if not autoWalkEnabled then break end
+                local targetPos = selectedPath[i]
+
+                while autoWalkEnabled and (hrp.Position - targetPos).Magnitude > 2 do
+                    hrp.Velocity = Vector3.zero
+                    hrp.RotVelocity = Vector3.zero
+
+                    local distance = (hrp.Position - targetPos).Magnitude
+                    local tweenTime = distance / walkSpeed
+                    local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
+
+                    currentTween = game:GetService("TweenService"):Create(hrp, tweenInfo, {CFrame = CFrame.new(targetPos)})
+                    currentTween:Play()
+
+                    print("[NexaHub] Moviendo al nodo " .. i .. "/" .. #selectedPath)
+
+                    currentTween.Completed:Wait()
+                    currentTween = nil
+                    task.wait()
+                end
+            end
+
+            if autoWalkEnabled then
+                if character and character:FindFirstChild("Humanoid") then
+                    character.Humanoid.Jump = true
+                end
+
+                local vim = game:GetService("VirtualInputManager")
+                pcall(function()
+                    vim:SendKeyEvent(true, Enum.KeyCode.One, false, game)
+                    task.wait(1)
+                    vim:SendKeyEvent(false, Enum.KeyCode.One, false, game)
+                end)
+
+                if singleRun then
+                    autoWalkEnabled = false
+                    singleRun = false
+                    print("[NexaHub] TP 40M wim completado. Deteniendo.")
+                else
+                    print("[NexaHub] Recorrido completado. Repitiendo...")
+                end
+                task.wait(1)
+            end
+        end
+    end
+end)
